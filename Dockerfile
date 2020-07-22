@@ -63,8 +63,8 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install nodejs
 RUN npm install mocha -g
 RUN npm install -g parallel-mocha
-RUN npm install selenium-webdriver
-RUN apt-get install chromedriver
+RUN npm install -g selenium-webdriver
+RUN apt-get install chromedriver -y
 RUN mkdir /home/tests_chrome
 
 ENV JENKINS_UC https://updates.jenkins.io
