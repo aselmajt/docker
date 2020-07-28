@@ -46,7 +46,7 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
 
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.176.4}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.235.2}
 
 # jenkins.war checksum, download will be validated using it
 # ARG JENKINS_SHA=33a6c3161cf8de9c8729fd83914d781319fd1569acf487c7b1121681dba190a5
@@ -64,6 +64,7 @@ RUN apt-get install nodejs
 RUN npm install mocha -g
 RUN npm install -g parallel-mocha
 RUN npm install -g selenium-webdriver
+RUN npm install selenium-webdriver
 RUN apt-get install chromedriver -y
 RUN mkdir /home/tests_chrome
 
@@ -91,3 +92,5 @@ ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup ${REF}/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
+
+RUN install-plugins.sh workflow-aggregator
