@@ -94,3 +94,4 @@ COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
 RUN install-plugins.sh workflow-aggregator
+RUN install-plugins.sh email-ext
