@@ -61,12 +61,14 @@ RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install nodejs
-RUN npm install mocha -g
-RUN npm install -g parallel-mocha
-RUN npm install -g selenium-webdriver
-RUN npm install selenium-webdriver
-RUN apt-get install chromedriver -y
-RUN mkdir /home/tests_chrome
+#RUN npm install mocha -g
+#RUN npm install -g parallel-mocha
+#RUN npm install -g selenium-webdriver
+#RUN npm install selenium-webdriver
+#RUN apt-get install chromedriver -y
+#RUN mkdir /home/tests_chrome
+
+RUN npm install -g cypress
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
@@ -83,11 +85,10 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
 USER ${user}
 
-COPY tests_chrome /home/tests_chrome
+#COPY tests_chrome /home/tests_chrome
 COPY jenkins-support /usr/local/bin/jenkins-support
 COPY jenkins.sh /usr/local/bin/jenkins.sh
 COPY tini-shim.sh /bin/tini
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup ${REF}/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
@@ -95,3 +96,6 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
 RUN install-plugins.sh workflow-aggregator
 RUN install-plugins.sh email-ext
+RUN install-plugins.sh blueocean
+
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
