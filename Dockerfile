@@ -59,8 +59,8 @@ ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-w
 RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war
 
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install nodejs
+#RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+#RUN apt-get install nodejs
 #RUN npm install mocha -g
 #RUN npm install -g parallel-mocha
 #RUN npm install -g selenium-webdriver
@@ -68,7 +68,7 @@ RUN apt-get install nodejs
 #RUN apt-get install chromedriver -y
 #RUN mkdir /home/tests_chrome
 
-RUN npm install -g cypress
+#RUN npm install -g cypress
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
